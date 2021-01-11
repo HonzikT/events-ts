@@ -7,10 +7,9 @@ import {
 } from '../../redux/recorder/recorder.actions';
 import { selectRecorderDateStart } from '../../redux/recorder/recorder.selectors';
 
-import './recorder.css';
+import { addZero } from '../../lib/utils';
 
-// Util function, adds 0 if the number in time rendered is single digit
-const addZero = (num: number) => (num < 10 ? `0${num}` : `${num}`);
+import './recorder.css';
 
 const Recorder = () => {
   // State used to rerender component when interval changes
