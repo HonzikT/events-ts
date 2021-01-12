@@ -6,6 +6,7 @@ import {
   stopRecording,
 } from '../../redux/recorder/recorder.actions';
 import { selectRecorderDateStart } from '../../redux/recorder/recorder.selectors';
+import { createUserEvent } from '../../redux/user-events/user-events.actions';
 
 import { addZero } from '../../lib/utils';
 
@@ -27,6 +28,7 @@ const Recorder = () => {
     if (started) {
       window.clearInterval(interval.current);
 
+      dispatch(createUserEvent());
       dispatch(stopRecording());
     } else {
       dispatch(startRecording());
