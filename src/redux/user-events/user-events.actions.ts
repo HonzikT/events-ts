@@ -127,3 +127,57 @@ export const createUserEvent = (): ThunkAction<
     dispatch(createFailure());
   }
 };
+
+// Delete user event
+// DELETE REQUEST
+export interface DeleteRequestAction
+  extends Action<typeof UserEventsTypes.DELETE_REQUEST> {}
+
+export const deleteRequest = (): DeleteRequestAction => ({
+  type: UserEventsTypes.DELETE_REQUEST,
+});
+
+// DELETE SUCCESS
+export interface DeleteSuccessAction
+  extends Action<typeof UserEventsTypes.DELETE_SUCCESS> {
+  payload: UserEvent['id'];
+}
+
+export const deleteSuccess = (id: number): DeleteSuccessAction => ({
+  type: UserEventsTypes.DELETE_SUCCESS,
+  payload: id,
+});
+
+// DELETE FAILURE
+export interface DeleteFailureAction
+  extends Action<typeof UserEventsTypes.DELETE_FAILURE> {}
+
+export const deleteFailure = (): DeleteFailureAction => ({
+  type: UserEventsTypes.DELETE_FAILURE,
+});
+
+// THUNK ACTION
+export const deleteUserEvent = (
+  id: UserEvent['id']
+): ThunkAction<
+  Promise<void>,
+  RootState,
+  undefined,
+  DeleteRequestAction | DeleteSuccessAction | DeleteFailureAction
+> => async (dispatch) => {
+  dispatch(deleteRequest());
+
+  try {
+    const response = await fetch(`http://localhost:3001/events/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      dispatch(deleteSuccess(id));
+    }
+  } catch (err) {
+    console.error(err);
+
+    dispatch(deleteFailure());
+  }
+};

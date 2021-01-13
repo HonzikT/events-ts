@@ -4,9 +4,11 @@ import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../redux/root-reducer';
 import { selectUserEventsArray } from '../../redux/user-events/user-events.selectors';
 import {
-  loadUserEvents,
   UserEvent,
+  loadUserEvents,
 } from '../../redux/user-events/user-events.actions';
+
+import EventItem from '../event-item';
 
 import { addZero } from '../../lib/utils';
 
@@ -59,12 +61,6 @@ const groupEventsByDay = (events: UserEvent[]) => {
   return groups;
 };
 
-const changeTimeFormat = (time: string): string => {
-  return `${new Date(time).getHours()}:${new Date(
-    time
-  ).getMinutes()}:${new Date(time).getSeconds()}`;
-};
-
 const Calendar: React.FC<Props> = ({ events, loadUserEvents }) => {
   useEffect(() => {
     loadUserEvents();
@@ -95,19 +91,7 @@ const Calendar: React.FC<Props> = ({ events, loadUserEvents }) => {
             </div>
             <div className="calendar-events">
               {events.map((event) => {
-                return (
-                  <div key={event.id} className="calendar-event">
-                    <div className="calendar-event-info">
-                      <div className="calendar-event-time">{`${changeTimeFormat(
-                        event.dateStart
-                      )} - ${changeTimeFormat(event.dateEnd)}`}</div>
-                      <div className="calendar-event-title">{event.title}</div>
-                    </div>
-                    <button className="calendar-event-delete-button">
-                      &times;
-                    </button>
-                  </div>
-                );
+                return <EventItem key={`event_${event.id}`} event={event} />;
               })}
             </div>
           </div>
