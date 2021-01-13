@@ -4,7 +4,7 @@ import { RootState } from '../root-reducer';
 
 import { selectRecorderDateStart } from '../recorder/recorder.selectors';
 
-import UserEventsTypes from './user-events.types';
+import { UserEventsTypes } from './user-events.types';
 
 export interface UserEvent {
   id: number;
@@ -110,10 +110,10 @@ export const createUserEvent = (): ThunkAction<
       dateEnd: new Date().toISOString(),
     };
 
-    const response = await fetch(`http:localhost:3001/events`, {
+    const response = await fetch(`http://localhost:3001/events`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application-json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(event),
     });

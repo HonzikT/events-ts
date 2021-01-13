@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 
-import RecorderTypes from './recorder.types';
+import { RecorderTypes } from './recorder.types';
 
 export type StartAction = Action<typeof RecorderTypes.START_RECORDING>;
 export type StopAction = Action<typeof RecorderTypes.STOP_RECORDING>;

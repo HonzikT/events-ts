@@ -1,10 +1,8 @@
-const UserEventsTypes = {
+export const UserEventsTypes = {
   LOAD_REQUEST: 'LOAD_REQUEST',
   LOAD_SUCCESS: 'LOAD_SUCCESS',
   LOAD_FAILURE: 'LOAD_FAILURE',
   CREATE_REQUEST: 'CREATE_REQUEST',
   CREATE_SUCCESS: 'CREATE_SUCCESS',
   CREATE_FAILURE: 'CREATE_FAILURE',
-};
-
-export default UserEventsTypes;
+} as const;

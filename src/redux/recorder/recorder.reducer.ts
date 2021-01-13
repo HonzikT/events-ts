@@ -1,5 +1,5 @@
 import { StartAction, StopAction } from './recorder.actions';
-import RecorderTypes from './recorder.types';
+import { RecorderTypes } from './recorder.types';
 
 interface RecorderState {
   dateStart: string;

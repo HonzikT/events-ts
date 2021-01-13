@@ -1,6 +1,6 @@
 import { UserEvent } from './user-events.actions';
 import { LoadSuccessAction, CreateSuccessAction } from './user-events.actions';
-import UserEventsTypes from './user-events.types';
+import { UserEventsTypes } from './user-events.types';
 
 interface UserEventsState {
   byIds: Record<UserEvent['id'], UserEvent>;
