@@ -3,6 +3,7 @@ import {
   LoadSuccessAction,
   CreateSuccessAction,
   DeleteSuccessAction,
+  UpdateSuccessAction,
 } from './user-events.actions';
 import { UserEventsTypes } from './user-events.types';
 
@@ -18,7 +19,11 @@ const INITIAL_STATE: UserEventsState = {
 
 const userEventsReducer = (
   state: UserEventsState = INITIAL_STATE,
-  action: LoadSuccessAction | CreateSuccessAction | DeleteSuccessAction
+  action:
+    | LoadSuccessAction
+    | CreateSuccessAction
+    | DeleteSuccessAction
+    | UpdateSuccessAction
 ) => {
   switch (action.type) {
     case UserEventsTypes.LOAD_SUCCESS:
@@ -37,7 +42,6 @@ const userEventsReducer = (
 
     case UserEventsTypes.CREATE_SUCCESS:
       const { event } = action.payload;
-
       return {
         ...state,
         allIds: [...state.allIds, event.id],
@@ -50,10 +54,15 @@ const userEventsReducer = (
         byIds: { ...state.byIds },
         allIds: state.allIds.filter((id) => id !== action.payload),
       };
-
       delete newState.byIds[action.payload];
-
       return newState;
+
+    case UserEventsTypes.UPDATE_SUCCESS:
+      const updatedEvent = action.payload.event;
+      return {
+        ...state,
+        byIds: { ...state.byIds, [updatedEvent.id]: updatedEvent },
+      };
 
     default:
       return state;
